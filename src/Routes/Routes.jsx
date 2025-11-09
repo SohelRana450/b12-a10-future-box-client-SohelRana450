@@ -7,6 +7,7 @@ import MyGallery from "../Pages/MyGallery";
 import MyFavorites from "../Pages/MyFavorites";
 import AuthLayout from "../Layout/AuthLayout";
 import Register from "../Pages/Register";
+import LogIn from "../Pages/LogIn";
 
 const router = createBrowserRouter(
     [
@@ -41,6 +42,10 @@ const router = createBrowserRouter(
             path: "/auth",
             element: <AuthLayout></AuthLayout>,
             children: [
+                {
+                    path: "/auth/login",
+                    element: <LogIn></LogIn> 
+                },
                 {
                     path: "/auth/register",
                     element: <Register></Register>
