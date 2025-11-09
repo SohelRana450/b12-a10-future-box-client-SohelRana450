@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { use } from 'react';
 import MyLink from './MyLink';
 import { Link } from 'react-router';
+import { AuthContext } from '../Provider/AuthContext';
 
 const Navbar = () => {
+    const {user,logOut} = use(AuthContext)
+
+    const handleLogOut = () =>{
+        logOut()
+        .then()
+        .catch()
+    }
     return (
        <div className='bg-fuchsia-200 text-black'>
         <div className="w-11/12 mx-auto flex justify-between items-center py-2">
@@ -15,11 +23,17 @@ const Navbar = () => {
         tabIndex="-1"
         className="menu menu-sm dropdown-content bg-[#B6AE9F] text-[#062941] font-bold rounded-box z-1 mt-3 w-52 p-2 ">
     <li><MyLink to="/">Home</MyLink></li>           
-    <li><MyLink to="/explore-artworks">Explore Artworks</MyLink></li>
+   {/* {
+    user && (
+        <div> */}
+             <li><MyLink to="/explore-artworks">Explore Artworks</MyLink></li>
     <li><MyLink to="/add-artwork">Add Artwork</MyLink></li>
     <li><MyLink to="/my-gallery">My
      Gallery</MyLink></li>
    <li><MyLink to="/my-favorites">My Favorites</MyLink></li>
+        {/* </div>
+    )
+   } */}
       </ul>
     </div>
    <div className='font-extrabold text-3xl ' ><span className='text-[#9B5DE0] hover:underline'>A</span><span className='text-pink-600 hover:underline'>r</span><span className='text-green-600 hover:underline'>t</span><span className='text-yellow-500 hover:underline'>i</span><span className='text-blue-500 hover:underline'>f</span><span className='text-cyan-500 hover:underline'>y</span></div>
@@ -28,19 +42,40 @@ const Navbar = () => {
     <div className=" hidden lg:flex">
     <ul className="flex gap-4 px-1 text-sm">
          <li><MyLink to="/">Home</MyLink></li>           
-    <li><MyLink to="/explore-artworks">Explore Artworks</MyLink></li>
+   {/* {
+    user && (
+        <div className='flex items-center gap-3'> */}
+             <li><MyLink to="/explore-artworks">Explore Artworks</MyLink></li>
     <li><MyLink to="/add-artwork">Add Artwork</MyLink></li>
     <li><MyLink to="/my-gallery">My
      Gallery</MyLink></li>
    <li><MyLink to="/my-favorites">My Favorites</MyLink></li>
+        {/* </div>
+    )
+   } */}
     </ul>
   </div>
   <div className="space-x-3 flex items-center">
+   {
+    user ? (
     
-   <Link to="/auth/login" className='btn btn-secondary rounded-xl font-bold '>Log In</Link>
-  
-    
+    <div className="dropdown dropdown-hover dropdown-end">
+  <div tabIndex={0} role="" className="">
+    <img className='h-13 rounded-full' src={user.photoURL} alt="" />
+    </div>
+
+  <ul tabIndex={-1} className="dropdown-content   bg-[#a09d97] text-[#062941] rounded-box z-50 w-40 p-2 space-y-2 shadow">
+    <li><h3 className='hover:bg-[#B6AE9F] p-2 rounded-xl'>{user.displayName}</h3></li>
+    <li><button onClick={handleLogOut} className='btn btn-sm btn-secondary w-full rounded-xl font-bold '>Log Out</button></li>
+  </ul>
+</div>
+) 
+:  
+  <div className='space-x-3'>
+     <Link to="/auth/login" className='btn btn-secondary rounded-xl font-bold '>Log In</Link>
     <Link to="/auth/register" className='btn btn-secondary rounded-xl font-bold '>Register</Link>
+  </div>
+   }
   </div>
   </div>
 </div>

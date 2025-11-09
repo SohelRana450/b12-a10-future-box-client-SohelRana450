@@ -8,12 +8,15 @@ import MyFavorites from "../Pages/MyFavorites";
 import AuthLayout from "../Layout/AuthLayout";
 import Register from "../Pages/Register";
 import LogIn from "../Pages/LogIn";
+import ErrorPage from "../Pages/ErrorPage";
+import PrivateRoute from "../Provider/PrivateRoute";
 
 const router = createBrowserRouter(
     [
         {
           path: "/",
           element: <HomeLayout></HomeLayout>,
+          errorElement: <ErrorPage></ErrorPage>,
           children: [
             {
                 index: true,
@@ -25,15 +28,15 @@ const router = createBrowserRouter(
             },
             {
                 path: "/add-artwork",
-                element: <AddArtwork></AddArtwork>
+                element: <PrivateRoute><AddArtwork></AddArtwork></PrivateRoute>
             },
             {
                 path: "/my-gallery",
-                element: <MyGallery></MyGallery>
+                element: <PrivateRoute><MyGallery></MyGallery></PrivateRoute>
             },
             {
                 path: "/my-favorites",
-                element: <MyFavorites></MyFavorites>
+                element: <PrivateRoute><MyFavorites></MyFavorites></PrivateRoute>
             }
           ]
 
