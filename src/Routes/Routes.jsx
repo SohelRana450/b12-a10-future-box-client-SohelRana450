@@ -6,6 +6,7 @@ import AddArtwork from "../Pages/AddArtwork";
 import MyGallery from "../Pages/MyGallery";
 import MyFavorites from "../Pages/MyFavorites";
 import AuthLayout from "../Layout/AuthLayout";
+import Register from "../Pages/Register";
 
 const router = createBrowserRouter(
     [
@@ -40,7 +41,10 @@ const router = createBrowserRouter(
             path: "/auth",
             element: <AuthLayout></AuthLayout>,
             children: [
-                
+                {
+                    path: "/auth/register",
+                    element: <Register></Register>
+                }
             ]
         }
     ]
