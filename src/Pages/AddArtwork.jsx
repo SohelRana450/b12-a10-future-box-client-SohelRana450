@@ -1,9 +1,10 @@
 import React, { use } from 'react';
 import { AuthContext } from '../Provider/AuthContext';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router';
 
 const AddArtwork = () => {
-
+  const navigate = useNavigate()
     const {user} = use(AuthContext)
     const handleForm = (e) =>{
         e.preventDefault()
@@ -33,7 +34,9 @@ const AddArtwork = () => {
         })
         .then(res => res.json())
         .then()
+
         toast.success('Successfully Artwork Add!')
+        navigate('/')
         e.target.reset();
     }
     return (
@@ -45,11 +48,11 @@ const AddArtwork = () => {
            
            <div className='flex flex-col md:flex-row justify-between gap-3'>
             
-            <div className='w-full mx-auto'>
+            <div className='w-full mx-auto space-y-3'>
                  <label className="label">Title</label>
           <input type="text" name="title" className="input block w-full" placeholder="Title" />
             </div>
-            <div className='w-full mx-auto'>
+            <div className='w-full mx-auto space-y-3'>
                 <label className="label">Artist Name</label>
           <input type="text"  name="artistname" className="input block w-full" placeholder="Artist Name" />
             </div>
@@ -83,7 +86,7 @@ const AddArtwork = () => {
           defaultValue={user.photoURL}
            className="input block w-full md:w-110" placeholder="PhotoURL" />
             </div>
-           <div className='space-y-3'>
+           <div className='space-y-3 md:mt-0 mt-2'>
              <label className="label">TotalArtworks</label>
           <input type="text" name="totalArtworks"
            className="input block" placeholder="Total Artworks" />
@@ -113,6 +116,7 @@ const AddArtwork = () => {
         <label className="label">Category</label>
          <select name='category' defaultValue="Pick a Category" className="select appearance-none w-50 block">
   <option>Painting</option>
+  <option>Oil Painting</option>
   <option>Drawing</option>
   <option>Digital</option>
 </select>

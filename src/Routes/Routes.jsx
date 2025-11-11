@@ -11,6 +11,8 @@ import LogIn from "../Pages/LogIn";
 import ErrorPage from "../Pages/ErrorPage";
 import PrivateRoute from "../Provider/PrivateRoute";
 import ArtworkDetails from "../Pages/ArtworkDetails";
+import UpdateGallery from "../components/UpdateGallery";
+import MyGalleryDetails from "../components/MyGalleryDetails";
 
 const router = createBrowserRouter(
     [
@@ -42,6 +44,10 @@ const router = createBrowserRouter(
             {
                 path: "/my-gallery",
                 element: <PrivateRoute><MyGallery></MyGallery></PrivateRoute>
+            },
+            {
+                path: "/my-gallery-details/:id",
+                element: <PrivateRoute><MyGalleryDetails></MyGalleryDetails></PrivateRoute>
             },
             {
                 path: "/my-favorites",

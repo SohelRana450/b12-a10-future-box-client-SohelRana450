@@ -1,0 +1,182 @@
+[
+  {
+    "imageUrl": "https://example.com/artworks/sunset.jpg",
+    "title": "Golden Sunset",
+    "category": "Landscape",
+    "medium": "Oil on Canvas",
+    "description": "A warm depiction of a sunset over the ocean, emphasizing light and reflection.",
+    "dimensions": "24x36 inches",
+    "price": 450,
+    "visibility": "Public",
+    "likes": 23,
+    "artist": {
+      "name": "Alice Rivera",
+      "email": "alice.art@example.com",
+      "photoUrl": "https://example.com/profiles/alice.jpg",
+      "totalArtworks": 5
+    },
+    "createdAt": "2025-11-10T10:15:00Z"
+  },
+  {
+    "imageUrl": "https://example.com/artworks/abstract-blue.jpg",
+    "title": "Abstract Blues",
+    "category": "Abstract",
+    "medium": "Acrylic",
+    "description": "An exploration of emotion through layered blue tones and bold textures.",
+    "dimensions": "30x30 inches",
+    "price": null,
+    "visibility": "Private",
+    "likes": 5,
+    "artist": {
+      "name": "David Kim",
+      "email": "david.kim@example.com",
+      "photoUrl": "https://example.com/profiles/david.jpg",
+      "totalArtworks": 9
+    },
+    "createdAt": "2025-11-09T14:22:00Z"
+  },
+  {
+    "imageUrl": "https://example.com/artworks/wildflowers.jpg",
+    "title": "Field of Wildflowers",
+    "category": "Nature",
+    "medium": "Watercolor",
+    "description": "Delicate watercolor flowers capturing the beauty of untouched nature.",
+    "dimensions": "18x24 inches",
+    "price": 320,
+    "visibility": "Public",
+    "likes": 41,
+    "artist": {
+      "name": "Sofia Martinez",
+      "email": "sofia.m@example.com",
+      "photoUrl": "https://example.com/profiles/sofia.jpg",
+      "totalArtworks": 12
+    },
+    "createdAt": "2025-11-08T09:50:00Z"
+  },
+  {
+    "imageUrl": "https://example.com/artworks/portrait-girl.jpg",
+    "title": "The Silent Gaze",
+    "category": "Portrait",
+    "medium": "Charcoal and Graphite",
+    "description": "A hauntingly realistic charcoal portrait of a young girl with expressive eyes.",
+    "dimensions": "20x28 inches",
+    "price": 600,
+    "visibility": "Public",
+    "likes": 37,
+    "artist": {
+      "name": "Noah Patel",
+      "email": "noah.patel@example.com",
+      "photoUrl": "https://example.com/profiles/noah.jpg",
+      "totalArtworks": 8
+    },
+    "createdAt": "2025-11-07T17:40:00Z"
+  },
+  {
+    "imageUrl": "https://example.com/artworks/city-night.jpg",
+    "title": "City Lights",
+    "category": "Urban",
+    "medium": "Digital Painting",
+    "description": "A neon-infused digital artwork capturing the vibrance of a modern city at night.",
+    "dimensions": null,
+    "price": 700,
+    "visibility": "Public",
+    "likes": 54,
+    "artist": {
+      "name": "Maya Chen",
+      "email": "maya.chen@example.com",
+      "photoUrl": "https://example.com/profiles/maya.jpg",
+      "totalArtworks": 14
+    },
+    "createdAt": "2025-11-06T15:10:00Z"
+  },
+  {
+    "imageUrl": "https://example.com/artworks/mountain-view.jpg",
+    "title": "Whispers of the Mountains",
+    "category": "Landscape",
+    "medium": "Oil on Canvas",
+    "description": "A breathtaking panoramic of snowy peaks kissed by the morning light.",
+    "dimensions": "36x48 inches",
+    "price": 950,
+    "visibility": "Public",
+    "likes": 66,
+    "artist": {
+      "name": "Oliver Brown",
+      "email": "oliver.b@example.com",
+      "photoUrl": "https://example.com/profiles/oliver.jpg",
+      "totalArtworks": 20
+    },
+    "createdAt": "2025-11-05T11:25:00Z"
+  },
+  {
+    "imageUrl": "https://example.com/artworks/forest-path.jpg",
+    "title": "Path Through the Pines",
+    "category": "Nature",
+    "medium": "Acrylic",
+    "description": "A peaceful woodland scene with sunlight streaming through tall pine trees.",
+    "dimensions": "22x28 inches",
+    "price": 380,
+    "visibility": "Public",
+    "likes": 28,
+    "artist": {
+      "name": "Emma Johnson",
+      "email": "emma.johnson@example.com",
+      "photoUrl": "https://example.com/profiles/emma.jpg",
+      "totalArtworks": 11
+    },
+    "createdAt": "2025-11-04T13:35:00Z"
+  },
+  {
+    "imageUrl": "https://example.com/artworks/sea-dreams.jpg",
+    "title": "Sea Dreams",
+    "category": "Marine",
+    "medium": "Watercolor",
+    "description": "Gentle waves blend with sky tones in this dreamy oceanic watercolor.",
+    "dimensions": "16x20 inches",
+    "price": 250,
+    "visibility": "Private",
+    "likes": 9,
+    "artist": {
+      "name": "Lucas Nguyen",
+      "email": "lucas.nguyen@example.com",
+      "photoUrl": "https://example.com/profiles/lucas.jpg",
+      "totalArtworks": 4
+    },
+    "createdAt": "2025-11-03T08:45:00Z"
+  },
+  {
+    "imageUrl": "https://example.com/artworks/desert-dunes.jpg",
+    "title": "Desert Dunes",
+    "category": "Landscape",
+    "medium": "Oil on Board",
+    "description": "Golden sands ripple beneath a fiery sunset in this impressionist landscape.",
+    "dimensions": "30x40 inches",
+    "price": 510,
+    "visibility": "Public",
+    "likes": 32,
+    "artist": {
+      "name": "Hannah Wright",
+      "email": "hannah.wright@example.com",
+      "photoUrl": "https://example.com/profiles/hannah.jpg",
+      "totalArtworks": 10
+    },
+    "createdAt": "2025-11-02T10:55:00Z"
+  },
+  {
+    "imageUrl": "https://example.com/artworks/galaxy-dreams.jpg",
+    "title": "Cosmic Dreams",
+    "category": "Sci-Fi",
+    "medium": "Digital Art",
+    "description": "An imaginative rendering of galaxies colliding in a cosmic ballet of color.",
+    "dimensions": null,
+    "price": 880,
+    "visibility": "Public",
+    "likes": 77,
+    "artist": {
+      "name": "Isabella Lee",
+      "email": "isabella.lee@example.com",
+      "photoUrl": "https://example.com/profiles/isabella.jpg",
+      "totalArtworks": 16
+    },
+    "createdAt": "2025-11-01T16:05:00Z"
+  }
+]
