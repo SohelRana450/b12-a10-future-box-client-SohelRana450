@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 
 const Footer = () => {
     return (
-         <div className=' bg-base-300 py-5'>
+         <div className='bg-base-300  py-5'>
             
             <footer className="w-11/12 mx-auto flex flex-col md:flex-row justify-between footer-horizontal text-base-content rounded px-10 py-15 space-y-6 ">
                 <aside>
@@ -38,7 +38,7 @@ const Footer = () => {
   </div>
   
 </footer>
-<aside className='text-center'>
+<aside className='text-center pb-9'>
     <p>Copyright © {new Date().getFullYear()} - All right reserved.</p>
   </aside>
         </div>

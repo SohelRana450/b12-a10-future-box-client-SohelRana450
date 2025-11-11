@@ -1,4 +1,4 @@
-import React, { use } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import MyLink from './MyLink';
 import { Link } from 'react-router';
 import { AuthContext } from '../Provider/AuthContext';
@@ -6,7 +6,17 @@ import { AuthContext } from '../Provider/AuthContext';
 const Navbar = () => {
     const {user,logOut} = use(AuthContext)
 
-   
+    const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light')
+
+    useEffect(()=>{
+        const html = document.querySelector('html')
+        html.setAttribute('data-theme',theme)
+        localStorage.setItem("theme",theme)
+    },[theme])
+
+    const handleTheme =(checked)=>{
+        setTheme(checked ? "dark":"light")
+    }
 
     const handleLogOut = () =>{
         logOut()
@@ -59,15 +69,17 @@ const Navbar = () => {
   </div>
   <div className="space-x-3 flex items-center">
    {
-    user ? (
+    user?.photoURL ? (
     
     <div className="dropdown dropdown-hover dropdown-end">
   <div tabIndex={0} role="" className="">
-    <img className='h-13 rounded-full' src={user.photoURL} alt="" />
+    <img className='w-10 h-10 rounded-full object-cover' src={user.photoURL} alt={user?.displayName} />
     </div>
 
   <ul tabIndex={-1} className="dropdown-content   bg-[#a09d97] text-[#062941] rounded-box z-50 w-40 p-2 space-y-2 shadow">
-    <li><h3 className='hover:bg-[#B6AE9F] p-2 rounded-xl'>{user.displayName}</h3></li>
+    <li className='space-x-2'><input onChange={(e)=> handleTheme(e.target.checked)} type="checkbox" defaultValue={localStorage.getItem('theme')==="dark"} className='toggle' /><span className='text-xs'>Theme Toggle</span></li>
+    <li><h3 className='hover:bg-[#B6AE9F] p-2 rounded-xl text-sm'>{user.displayName}</h3></li>
+    
     <li><button onClick={handleLogOut} className='btn btn-sm btn-secondary w-full rounded-xl font-bold '>Log Out</button></li>
   </ul>
 </div>

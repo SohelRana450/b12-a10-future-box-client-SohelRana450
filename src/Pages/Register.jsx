@@ -2,7 +2,7 @@ import React, { use, useState } from 'react';
 
 import { Link,  useLocation,  useNavigate } from 'react-router';
 import { AuthContext } from '../Provider/AuthContext';
-import { Bounce, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 const Register = () => {
      const {createUser,updateUser,setUser,signInGoogle} = use(AuthContext)
@@ -16,7 +16,6 @@ const Register = () => {
         const photo = e.target.photo.value;
         const email = e.target.email.value;
         const password = e.target.password.value;
-        console.log(email,password);
   
         const validation = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
      if (!validation.test(password)) {
@@ -37,15 +36,7 @@ const Register = () => {
           .catch(error =>{
             setError(error.message)
           })
-          toast.success('Successfully Register!', {
-position: "top-right",
-autoClose: 5000,
-pauseOnHover: true,
-draggable: true,
-progress: undefined,
-theme: "light",
-transition: Bounce,
-});
+          toast.success('Successfully Register!');
            setUser(user)
         })
         .catch(error =>{
@@ -53,21 +44,14 @@ transition: Bounce,
         })
       }
 
-      const handleGoogleSign =()=>{
-
+   const handleGoogleSign =()=>{
     signInGoogle()
     .then(result =>{
-      toast.success('Successfully Register!', {
-position: "top-right",
-autoClose: 5000,
-pauseOnHover: true,
-draggable: true,
-progress: undefined,
-theme: "light",
-transition: Bounce,
-});
-      setUser(result.user)
-      navigate(location.state?.from?.pathname || "/")
+      const user = result.user;
+      setUser(user)
+      navigate(location.state?.pathname || "/")
+      toast.success('Successfully Register!');
+      
     })
     .catch(error =>{
       setError(error.message)
@@ -117,6 +101,6 @@ transition: Bounce,
              </div>
            </div>
     );
-};
+}
 
 export default Register;

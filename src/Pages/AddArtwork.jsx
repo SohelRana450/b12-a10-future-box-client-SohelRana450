@@ -8,9 +8,7 @@ const AddArtwork = () => {
     const handleForm = (e) =>{
         e.preventDefault()
         const title = e.target.title.value;
-        const name = e.target.name.value;
         const artistname = e.target.artistname.value;
-        const email = e.target.email.value;
         const ImageURL = e.target.ImageURL.value;
         const price = e.target.price.value;
         const tools = e.target.tools.value;
@@ -18,9 +16,15 @@ const AddArtwork = () => {
         const category = e.target.category.value;
         const dimensions = e.target.dimensions.value;
         const description = e.target.description.value;
+        const totalArtworks = e.target.totalArtworks.value;
+        const likes = 0;
+       const name = user?.displayName;
+     const email = user?.email;
+     const artistPhoto = user?.photoURL;
+     const createdAt = new Date().toISOString();
 
-        const artworkUser = {title,name,artistname,email,ImageURL,price,tools,visibility,category,dimensions,description}
-        fetch('http://localhost:3000/addArtwork/',{
+        const artworkUser = {title,name,artistname,email,ImageURL,price,tools,visibility,category,dimensions,description,totalArtworks,likes,artistPhoto,createdAt}
+        fetch('http://localhost:3000/addArtwork',{
             method: 'POST',
             headers:{
                 'content-type' : "application/json"
@@ -72,10 +76,19 @@ const AddArtwork = () => {
             </div>
             
           </div>
-          <label className="label">Photo</label>
-          <input type="text" name="title"
+          <div className='flex flex-col md:flex-row justify-between'>
+            <div className='space-y-3'>
+              <label className="label">Photo</label>
+          <input type="text" name="artistPhoto"
           defaultValue={user.photoURL}
-           className="input block w-full md:w-110" placeholder="Photo" />
+           className="input block w-full md:w-110" placeholder="PhotoURL" />
+            </div>
+           <div className='space-y-3'>
+             <label className="label">TotalArtworks</label>
+          <input type="text" name="totalArtworks"
+           className="input block" placeholder="Total Artworks" />
+           </div>
+          </div>
          <div className='flex flex-col md:flex-row justify-around mt-2'>
              <div className='space-y-3 mt-2'>
                 <label className="label ">Price (Optional)</label>
