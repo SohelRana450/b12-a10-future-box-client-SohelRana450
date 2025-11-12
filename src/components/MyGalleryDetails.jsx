@@ -1,9 +1,11 @@
 import React, {  useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router';
+import { Link, useNavigate, useParams } from 'react-router';
+import Swal from 'sweetalert2';
 
 const MyGalleryDetails = () => {
         const [gallery,setGallery] = useState([])
         const {id} = useParams()
+        const navigate = useNavigate()
     
         useEffect(()=>{
             fetch(`http://localhost:3000/addArtwork/${id}`)
@@ -12,6 +14,35 @@ const MyGalleryDetails = () => {
                 setGallery(data)
             })
         },[id])
+
+        const handleDeleteButton = () =>{
+            Swal.fire({
+  title: "Are you sure?",
+  text: "You won't be able to revert this!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, delete it!"
+}).then((result) => {
+  if (result.isConfirmed) {
+    fetch(`http://localhost:3000/addArtwork/${gallery._id}`,{
+        method: "DELETE"
+    })
+    .then(res => res.json())
+    .then(()=>{
+        navigate('/my-gallery')
+        Swal.fire({
+      title: "Deleted!",
+      text: "Your file has been deleted.",
+      icon: "success"
+    });
+    })
+    
+  }
+});
+
+        }
     return (
         <div className='w-11/12 md:w-8/12 mx-auto bg-base-100 shadow-2xl rounded-xl my-20'>
            <div className=' p-8 flex flex-col md:flex-row justify-between gap-5'>
@@ -21,7 +52,7 @@ const MyGalleryDetails = () => {
                <div className=' mt-15  space-x-5 md:pl-15'>
                  <Link to={`/updated-artwork/${id}`} className='btn btn-secondary px-9'>Update </Link>
                 
-            <button className='btn btn-primary px-10'>Delete</button>
+            <button onClick={handleDeleteButton} className='btn btn-primary px-10'>Delete</button>
                </div>
             
              </div>
