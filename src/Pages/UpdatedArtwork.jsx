@@ -1,11 +1,46 @@
 import React from 'react';
-import { Link, useLoaderData} from 'react-router';
+import { Link, useLoaderData, useNavigate} from 'react-router';
+import { toast } from 'react-toastify';
 
 
 const UpdatedArtwork = () => {
    
         const data = useLoaderData()
-        console.log(data);
+        const navigate = useNavigate()
+
+        const handleForm = (e) =>{
+                e.preventDefault()
+                const title = e.target.title.value;
+                const artistname = e.target.artistname.value;
+                const ImageURL = e.target.ImageURL.value;
+                const price = e.target.price.value;
+                const tools = e.target.tools.value;
+                const visibility = e.target.visibility.value;
+                const category = e.target.category.value;
+                const dimensions = e.target.dimensions.value;
+                const description = e.target.description.value;
+                const totalArtworks = e.target.totalArtworks.value;
+                
+               const name = data?.displayName;
+             const email = data?.email;
+             const artistPhoto = data?.photoURL;
+             const createdAt = new Date().toISOString();
+        
+                const artworkUser = {title,name,artistname,email,ImageURL,price,tools,visibility,category,dimensions,description,totalArtworks,artistPhoto,createdAt}
+                fetch(`http://localhost:3000/addArtwork/${data._id}`,{
+                    method: 'PUT',
+                    headers:{
+                        'content-type' : "application/json"
+                    },
+                    body: JSON.stringify(artworkUser)
+                })
+                .then(res => res.json())
+                .then()
+        
+                toast.success('Successfully Artwork Add!')
+                navigate( `/my-gallery-details/${data._id}`)
+                e.target.reset();
+            }
                
     return (
         
@@ -13,7 +48,7 @@ const UpdatedArtwork = () => {
             <div className="w-11/12 mx-auto py-10 bg-base-200 min-h-70">
   
     
-          <form  className='space-y-3 w-full md:w-7/12 mx-auto bg-base-100 p-5 rounded-xl'>
+          <form onSubmit={handleForm}  className='space-y-3 w-full md:w-7/12 mx-auto bg-base-100 p-5 rounded-xl'>
            
            <div className='flex flex-col md:flex-row justify-between gap-3'>
             
