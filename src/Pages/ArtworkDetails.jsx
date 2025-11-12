@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import {  Link, useParams} from 'react-router';
 import { toast } from 'react-toastify';
+import { AuthContext } from '../Provider/AuthContext';
 
 const ArtworkDetails = () => {
+    const {user} = use(AuthContext)
     const {id} = useParams()
     const [count,setcount] = useState({})
     const [refetch,setRefetch] = useState(false)
@@ -35,6 +37,21 @@ const ArtworkDetails = () => {
         
     }
 
+    const handleFavoriteButton = () =>{
+
+        fetch(`http://localhost:3000/favoriteArt`,{
+            method: "POST",
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({...count, favorite_by: user.email})
+        })
+        .then(res => res.json())
+            toast.success('Add Favorite Artwork')
+       
+    }
+
+
     return (
         <div className='w-11/12 md:w-8/12 mx-auto bg-base-100 shadow-2xl rounded-xl my-20'>
            <div className=' p-8 flex flex-col md:flex-row justify-between gap-5'>
@@ -44,7 +61,7 @@ const ArtworkDetails = () => {
                <div className=' mt-15 space-x-5 md:pl-15'>
                  <button onClick={handleLikeButton} className='btn btn-secondary px-6 gap-3'>Like <span>{count.likes}</span></button>
                  
-            <button className='btn btn-primary px-10'>Favorites</button>
+            <button onClick={handleFavoriteButton} className='btn btn-primary px-10'>Favorites</button>
                </div>
             
              </div>
