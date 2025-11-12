@@ -1,13 +1,15 @@
 import React, { use, useEffect, useState } from 'react';
-import {  Link, useParams} from 'react-router';
+import {  Link, useNavigate, useParams} from 'react-router';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../Provider/AuthContext';
+import Swal from 'sweetalert2';
 
 const ArtworkDetails = () => {
     const {user} = use(AuthContext)
     const {id} = useParams()
     const [count,setcount] = useState({})
     const [refetch,setRefetch] = useState(false)
+    const navigate = useNavigate()
 
     useEffect(()=>{
         fetch(`http://localhost:3000/addArtwork/${id}`)
@@ -47,7 +49,30 @@ const ArtworkDetails = () => {
             body: JSON.stringify({...count, favorite_by: user.email})
         })
         .then(res => res.json())
-            toast.success('Add Favorite Artwork')
+        .then(()=>{
+let timerInterval;
+                   Swal.fire({
+  position: "top",
+  width: 400,
+  icon: "success",
+  title: "Successfully Add Favorite Artwork",
+  showConfirmButton: false,
+  html: " <b></b> .",
+  timer: 1000,
+  timerProgressBar: true,
+  didOpen: () => {
+    Swal.showLoading();
+    const timer = Swal.getPopup().querySelector("b");
+    timerInterval = setInterval(() => {
+      timer.textContent = `${Swal.getTimerLeft()}`;
+    }, 10);
+  },
+  willClose: () => {
+    clearInterval(timerInterval);
+  }
+})
+           navigate('/explore-artworks') 
+        })
        
     }
 
