@@ -1,5 +1,5 @@
 import React, {  useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { Link, useParams } from 'react-router';
 
 const MyGalleryDetails = () => {
         const [gallery,setGallery] = useState([])
@@ -9,20 +9,19 @@ const MyGalleryDetails = () => {
             fetch(`http://localhost:3000/addArtwork/${id}`)
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 setGallery(data)
             })
         },[id])
     return (
-        <div className='w-8/12 mx-auto bg-base-100 shadow-2xl rounded-xl my-20'>
+        <div className='w-11/12 md:w-8/12 mx-auto bg-base-100 shadow-2xl rounded-xl my-20'>
            <div className=' p-8 flex flex-col md:flex-row justify-between gap-5'>
              <div>
                 
                 <img className='w-170 md:h-90 rounded-xl ' src={gallery.ImageURL} alt="" />
-               <div className=' mt-15 space-x-5 pl-15'>
-                 <button  className='btn btn-secondary px-6'>Like </button>
-                 <span>{gallery.likes}</span>
-            <button className='btn btn-primary px-10'>Favorites</button>
+               <div className=' mt-15  space-x-5 md:pl-15'>
+                 <Link to={`/updated-artwork/${id}`} className='btn btn-secondary px-9'>Update </Link>
+                
+            <button className='btn btn-primary px-10'>Delete</button>
                </div>
             
              </div>
@@ -38,9 +37,10 @@ const MyGalleryDetails = () => {
             
             <div className='w-10/12 mx-auto  p-5 rounded-xl space-y-3'>
                 <h1 className='font-bold text-pink-400 text-2xl'>{gallery.title}</h1>
-                <p className=''>Artist: {gallery.artistname}</p>
-                <p>Medium: {gallery.tools}</p>
-                <p>{gallery.description}</p>
+                <p className=''><span className='font-semibold '>Artist:</span> {gallery.artistname}</p>
+                <p className=''><span className='font-semibold '>Medium:</span> {gallery.tools}</p>
+                <p className='mb-10 '><span className='font-bold italic underline'>Description:</span> {gallery.description}</p>
+                <Link to="/my-gallery" className='btn btn-secondary mb-10'>Back Gallery Page</Link>
            </div>
         </div>
     );

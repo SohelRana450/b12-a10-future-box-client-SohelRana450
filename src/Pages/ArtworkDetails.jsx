@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import {  useParams} from 'react-router';
+import {  Link, useParams} from 'react-router';
+import { toast } from 'react-toastify';
 
 const ArtworkDetails = () => {
     const {id} = useParams()
@@ -26,23 +27,23 @@ const ArtworkDetails = () => {
             body: JSON.stringify(final)
         })
         .then(res => res.json())
-        .then((data)=>{
-            console.log(data);
+        .then(()=>{
             setRefetch(!refetch)
+            toast.success('Like')
             
         })  
         
     }
 
     return (
-        <div className='w-8/12 mx-auto bg-base-100 shadow-2xl rounded-xl my-20'>
+        <div className='w-11/12 md:w-8/12 mx-auto bg-base-100 shadow-2xl rounded-xl my-20'>
            <div className=' p-8 flex flex-col md:flex-row justify-between gap-5'>
              <div>
                 
                 <img className='w-170 md:h-90 rounded-xl ' src={count.ImageURL} alt="" />
-               <div className=' mt-15 space-x-5 pl-15'>
-                 <button onClick={handleLikeButton} className='btn btn-secondary px-6'>Like </button>
-                 <span>{count.likes}</span>
+               <div className=' mt-15 space-x-5 md:pl-15'>
+                 <button onClick={handleLikeButton} className='btn btn-secondary px-6 gap-3'>Like <span>{count.likes}</span></button>
+                 
             <button className='btn btn-primary px-10'>Favorites</button>
                </div>
             
@@ -59,9 +60,10 @@ const ArtworkDetails = () => {
             
             <div className='w-10/12 mx-auto  p-5 rounded-xl space-y-3'>
                 <h1 className='font-bold text-pink-400 text-2xl'>{count.title}</h1>
-                <p className=''>Artist: {count.artistname}</p>
-                <p>Medium: {count.tools}</p>
-                <p>{count.description}</p>
+                <p className=''><span className='font-medium'>Artist:</span> {count.artistname}</p>
+                <p><span className='font-medium'>Medium:</span> {count.tools}</p>
+                <p className='mb-10'><span className='font-bold italic underline'>Description:</span> {count.description}</p>
+                <Link to="/explore-artworks" className='btn btn-secondary mb-10'>Back Explore Page</Link>
            </div>
         </div>
     );

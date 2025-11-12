@@ -13,6 +13,7 @@ import PrivateRoute from "../Provider/PrivateRoute";
 import ArtworkDetails from "../Pages/ArtworkDetails";
 import UpdateGallery from "../components/UpdateGallery";
 import MyGalleryDetails from "../components/MyGalleryDetails";
+import UpdatedArtwork from "../Pages/UpdatedArtwork";
 
 const router = createBrowserRouter(
     [
@@ -48,6 +49,12 @@ const router = createBrowserRouter(
             {
                 path: "/my-gallery-details/:id",
                 element: <PrivateRoute><MyGalleryDetails></MyGalleryDetails></PrivateRoute>
+            },
+            {
+                path: "/updated-artwork/:id",
+                loader: ({params})=>
+            fetch(`http://localhost:3000/addArtwork/${params.id}`),
+                element: <PrivateRoute><UpdatedArtwork></UpdatedArtwork></PrivateRoute>
             },
             {
                 path: "/my-favorites",
