@@ -14,4 +14,5 @@
     .React-icons
     .Sweetalert2
     .React-toastify
+    .Firebase
 }
