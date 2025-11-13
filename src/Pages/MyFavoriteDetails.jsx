@@ -1,38 +1,28 @@
-import React, {  use, useEffect, useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import { AuthContext } from '../Provider/AuthContext';
 import { Link, useNavigate, useParams} from 'react-router';
 import { toast } from 'react-toastify';
 
 const MyFavoriteDetails = () => {
-        const {user} = use(AuthContext)
         const {id} = useParams()
         const [count,setcount] = useState({})
         const navigate = useNavigate()
     
         useEffect(()=>{
-            if(!user){
-                return
-            }
-            fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/favoriteArt/${id}`,{
-                headers: {
-                    authorization: `Bearer ${user.accessToken}`
-                }
-            })
+           
+            fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/favoriteArt/${id}`)
             .then(res => res.json())
             .then(data =>{
                 setcount(data)
             })
-        },[id,user])
+        },[id])
     
        
     
         const handleFavoriteButton = () =>{
     
             fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/favoriteArt/${count._id}`,{
-                method: "DELETE",
-                headers: {
-                    authorization: `Bearer ${user.accessToken}`
-                }
+                method: "DELETE"
                 
             })
             .then(res => res.json())

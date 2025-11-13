@@ -1,6 +1,5 @@
 import React, { use, useEffect, useState } from 'react';
 import { AuthContext } from '../Provider/AuthContext';
-import UpdateGallery from '../components/UpdateGallery';
 import FavoriteDetails from '../components/FavoriteDetails';
 
 const MyFavorites = () => {
@@ -8,14 +7,8 @@ const MyFavorites = () => {
        const [gallery,setGallery] = useState([])
    
        useEffect(()=>{
-        if(!user){
-            return
-        }
-           fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/my-favoriteArt?email=${user.email}`,{
-            headers: {
-                authorization : `Bearer ${user.accessToken}`
-            }
-           })
+       
+           fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/my-favoriteArt?email=${user.email}`)
            .then(res => res.json())
            .then(data => {
                setGallery(data)

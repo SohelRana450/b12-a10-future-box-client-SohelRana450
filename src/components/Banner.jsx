@@ -18,14 +18,8 @@ const Banner = () => {
   const [swiperKey, setSwiperKey] = useState(0);
 
   useEffect(() => {
-    if(!user){
-      return
-    }
-    fetch("https://b12-a10-future-box-server-sohelrana.vercel.app/latest-addArtwork",{
-      headers: {
-        authorization: `Bearer ${user.accessToken}`
-      }
-    })
+    
+    fetch("https://b12-a10-future-box-server-sohelrana.vercel.app/latest-addArtwork")
       .then((res) => res.json())
       .then((data) => {
         setLoadData(data);

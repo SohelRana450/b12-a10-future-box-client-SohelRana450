@@ -4,23 +4,16 @@ import { AuthContext } from '../Provider/AuthContext';
 
 const ExploreArtworks = () => {
   const [artworks, setArtworks] = useState([]);
-  const {user,loading} = use(AuthContext)
+  const {loading} = use(AuthContext)
 
   useEffect(() => {
-    if(!user){
-      return
-    }
-    fetch('https://b12-a10-future-box-server-sohelrana.vercel.app/addArtwork',{
-      headers:{
-        authorization : `Bearer ${user.accessToken}`
-      }
-    })
+    fetch('https://b12-a10-future-box-server-sohelrana.vercel.app/addArtwork')
       .then(res => res.json())
       .then(data => {
         const publicArtworks = data.filter(art => art.visibility === "Public");
         setArtworks(publicArtworks);
       })
-  }, [user]);
+  }, []);
  if(loading){
   return (
             <div className='flex justify-center items-center mt-50'>
@@ -31,11 +24,7 @@ const ExploreArtworks = () => {
   const handleSearch =(e)=>{
     e.preventDefault()
     const search = e.target.search.value
-    fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/search?search=${search}`,{
-      headers:{
-        authorization : `Bearer ${user.accessToken}`
-      }
-    })
+    fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/search?search=${search}`)
     .then(res => res.json())
     .then(data =>{
       setArtworks(data)

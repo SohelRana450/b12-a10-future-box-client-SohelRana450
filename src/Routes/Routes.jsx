@@ -24,8 +24,9 @@ const router = createBrowserRouter(
           errorElement: <ErrorPage></ErrorPage>,
           children: [
             {
-                index: true,
+                index: '/',
                 element:<Home></Home>,
+                loader: ()=> fetch('https://b12-a10-future-box-server-sohelrana.vercel.app/latest-addArtwork')
             },
             {
                 path: "/explore-artworks",

@@ -1,19 +1,14 @@
-import React, { use } from 'react';
-import { AiTwotoneLike } from 'react-icons/ai';
+import React from 'react';
 import { Link, useNavigate } from 'react-router';
-import { AuthContext } from '../Provider/AuthContext';
 import Swal from 'sweetalert2';
 
 const FavoriteDetails = ({promise,onDeleted }) => {
     const navigate = useNavigate()
-         const {user} = use(AuthContext)
-        //    const [promise,setPromise] = useState(promised)
             const handleFavoriteButton = () =>{
         
                 fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/favoriteArt/${promise._id}`,{
                     method: "DELETE",
-                    headers: { 'Content-Type': 'application/json',
-                      authorization: `Bearer ${user.accessToken}`
+                    headers: { 'Content-Type': 'application/json'
                      }
                     
                 })

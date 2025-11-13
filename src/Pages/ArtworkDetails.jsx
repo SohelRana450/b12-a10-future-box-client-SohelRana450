@@ -11,28 +11,20 @@ const ArtworkDetails = () => {
     const navigate = useNavigate()
 
     useEffect(()=>{
-        if(!user){
-            return
-        }
-        fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/addArtwork/${id}`,{
-            headers: {
-                authorization: `Bearer ${user.accessToken}`
-            }
-        })
+        
+        fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/addArtwork/${id}`)
         .then(res => res.json())
         .then(data =>{
             setCount(data)
         })
-    },[id,refetch,user])
+    },[id,refetch])
 
     const handleLikeButton =()=>{
         
         fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/likes/${count._id}`,{
             method: "POST",
             headers: {
-                'content-type': 'application/json',
-                authorization: `Bearer ${user.accessToken}`
-
+                'content-type': 'application/json'
             },
             body: JSON.stringify({userEmail: user.email})
         })
@@ -52,7 +44,6 @@ const ArtworkDetails = () => {
             method: "POST",
             headers: {
                 'content-type': 'application/json',
-                authorization: `Bearer ${user.accessToken}`
             },
             body: JSON.stringify({...count, favorite_by: user.email})
         })

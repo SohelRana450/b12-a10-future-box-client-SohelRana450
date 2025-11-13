@@ -13,11 +13,7 @@ const MyGalleryDetails = () => {
           if(!user){
             return
           }
-            fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/addArtwork/${id}`,{
-              headers: {
-                authorization: `Bearer ${user.accessToken}`
-              }
-            })
+            fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/addArtwork/${id}`)
             .then(res => res.json())
             .then(data => {
                 setGallery(data)
@@ -35,12 +31,7 @@ const MyGalleryDetails = () => {
   confirmButtonText: "Yes, delete it!"
 }).then((result) => {
   if (result.isConfirmed) {
-    fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/addArtwork/${gallery._id}`,{
-        method: "DELETE",
-        headers: {
-          authorization: `Bearer ${user.accessToken}`
-        }
-    })
+    fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/addArtwork/${gallery._id}`)
     .then(res => res.json())
     .then(()=>{
         navigate('/my-gallery')

@@ -7,14 +7,8 @@ const MyGallery = () => {
     const [gallery,setGallery] = useState([])
 
     useEffect(()=>{
-        if(!user){
-            return
-        }
-        fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/my-gallery?email=${user.email}`,{
-            headers: {
-                authorization: `Bearer ${user.accessToken}`
-            }
-        })
+        
+        fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/my-gallery?email=${user.email}`)
         .then(res => res.json())
         .then(data => {
             setGallery(data)

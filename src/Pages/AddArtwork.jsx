@@ -28,8 +28,7 @@ const AddArtwork = () => {
         fetch('https://b12-a10-future-box-server-sohelrana.vercel.app/addArtwork',{
             method: 'POST',
             headers:{
-                'content-type' : "application/json",
-                authorization: `Bearer ${user.accessToken}`
+                'content-type' : "application/json"
             },
             body: JSON.stringify(artworkUser)
         })

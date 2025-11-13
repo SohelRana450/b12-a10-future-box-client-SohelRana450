@@ -1,11 +1,9 @@
-import React, { use } from 'react';
+import React from 'react';
 import { Link, useLoaderData, useNavigate} from 'react-router';
 import { toast } from 'react-toastify';
-import { AuthContext } from '../Provider/AuthContext';
 
 
 const UpdatedArtwork = () => {
-        const {user} = use(AuthContext)
         const data = useLoaderData()
         const navigate = useNavigate()
 
@@ -31,8 +29,7 @@ const UpdatedArtwork = () => {
                 fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/addArtwork/${data._id}`,{
                     method: 'PUT',
                     headers:{
-                        'content-type' : "application/json",
-                        authorization: `Bearer ${user.accessToken}`
+                        'content-type' : "application/json"
                     },
                     body: JSON.stringify(artworkUser)
                 })
