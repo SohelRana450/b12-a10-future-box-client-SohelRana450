@@ -25,10 +25,11 @@ const AddArtwork = () => {
      const createdAt = new Date().toISOString();
 
         const artworkUser = {title,name,artistname,email,ImageURL,price,tools,visibility,category,dimensions,description,totalArtworks,likes,artistPhoto,createdAt}
-        fetch('http://localhost:3000/addArtwork',{
+        fetch('https://b12-a10-future-box-server-sohelrana.vercel.app/addArtwork',{
             method: 'POST',
             headers:{
-                'content-type' : "application/json"
+                'content-type' : "application/json",
+                authorization: `Bearer ${user.accessToken}`
             },
             body: JSON.stringify(artworkUser)
         })

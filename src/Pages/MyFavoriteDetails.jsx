@@ -1,34 +1,43 @@
-import React, {  useEffect, useState } from 'react';
+import React, {  use, useEffect, useState } from 'react';
 import { AuthContext } from '../Provider/AuthContext';
-import { Link, useParams} from 'react-router';
+import { Link, useNavigate, useParams} from 'react-router';
 import { toast } from 'react-toastify';
 
 const MyFavoriteDetails = () => {
-    
+        const {user} = use(AuthContext)
         const {id} = useParams()
         const [count,setcount] = useState({})
-        
+        const navigate = useNavigate()
     
         useEffect(()=>{
-            fetch(`http://localhost:3000/favoriteArt/${id}`)
+            if(!user){
+                return
+            }
+            fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/favoriteArt/${id}`,{
+                headers: {
+                    authorization: `Bearer ${user.accessToken}`
+                }
+            })
             .then(res => res.json())
             .then(data =>{
-                console.log(data);
                 setcount(data)
             })
-        },[id])
+        },[id,user])
     
        
     
         const handleFavoriteButton = () =>{
     
-            fetch(`http://localhost:3000/favoriteArt/${count._id}`,{
+            fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/favoriteArt/${count._id}`,{
                 method: "DELETE",
+                headers: {
+                    authorization: `Bearer ${user.accessToken}`
+                }
                 
             })
             .then(res => res.json())
                 toast.success('Add Favorite Artwork')
-           
+           navigate('/my-favorites')
         }
     
     
@@ -39,7 +48,7 @@ const MyFavoriteDetails = () => {
                     
                     <img className='w-170 md:h-90 rounded-xl ' src={count.ImageURL} alt="" />
                    <div className=' mt-15 space-x-5 md:pl-15'>
-                     <button  className='btn btn-secondary px-6 gap-3'>Like <span>{count.likes}</span></button>
+                     
                      
                 <button onClick={handleFavoriteButton} className='btn btn-primary px-10'>UnFavorites</button>
                    </div>

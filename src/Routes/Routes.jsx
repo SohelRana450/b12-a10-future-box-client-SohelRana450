@@ -26,11 +26,9 @@ const router = createBrowserRouter(
             {
                 index: true,
                 element:<Home></Home>,
-                loader: ()=> fetch('http://localhost:3000/latest-addArtwork')
             },
             {
                 path: "/explore-artworks",
-                loader: ()=> fetch('http://localhost:3000/addArtwork'),
                 element: <ExploreArtworks></ExploreArtworks>
             },
             {
@@ -58,7 +56,7 @@ const router = createBrowserRouter(
             {
                 path: "/updated-artwork/:id",
                 loader: ({params})=>
-            fetch(`http://localhost:3000/addArtwork/${params.id}`),
+            fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/addArtwork/${params.id}`),
                 element: <PrivateRoute><UpdatedArtwork></UpdatedArtwork></PrivateRoute>
             },
             {

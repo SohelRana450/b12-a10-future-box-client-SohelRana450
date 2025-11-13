@@ -1,19 +1,28 @@
-import React, {  useEffect, useState } from 'react';
+import React, {  use, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import Swal from 'sweetalert2';
+import { AuthContext } from '../Provider/AuthContext';
 
 const MyGalleryDetails = () => {
+        const {user} = use(AuthContext)
         const [gallery,setGallery] = useState([])
         const {id} = useParams()
         const navigate = useNavigate()
     
         useEffect(()=>{
-            fetch(`http://localhost:3000/addArtwork/${id}`)
+          if(!user){
+            return
+          }
+            fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/addArtwork/${id}`,{
+              headers: {
+                authorization: `Bearer ${user.accessToken}`
+              }
+            })
             .then(res => res.json())
             .then(data => {
                 setGallery(data)
             })
-        },[id])
+        },[id,user])
 
         const handleDeleteButton = () =>{
             Swal.fire({
@@ -26,8 +35,11 @@ const MyGalleryDetails = () => {
   confirmButtonText: "Yes, delete it!"
 }).then((result) => {
   if (result.isConfirmed) {
-    fetch(`http://localhost:3000/addArtwork/${gallery._id}`,{
-        method: "DELETE"
+    fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/addArtwork/${gallery._id}`,{
+        method: "DELETE",
+        headers: {
+          authorization: `Bearer ${user.accessToken}`
+        }
     })
     .then(res => res.json())
     .then(()=>{

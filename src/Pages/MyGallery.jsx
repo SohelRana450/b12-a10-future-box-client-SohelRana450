@@ -1,6 +1,5 @@
 import React, { use, useEffect, useState } from 'react';
 import { AuthContext } from '../Provider/AuthContext';
-import ArtWorkSection from '../components/ArtWorkSection';
 import UpdateGallery from '../components/UpdateGallery';
 
 const MyGallery = () => {
@@ -8,10 +7,16 @@ const MyGallery = () => {
     const [gallery,setGallery] = useState([])
 
     useEffect(()=>{
-        fetch(`http://localhost:3000/my-gallery?email=${user.email}`)
+        if(!user){
+            return
+        }
+        fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/my-gallery?email=${user.email}`,{
+            headers: {
+                authorization: `Bearer ${user.accessToken}`
+            }
+        })
         .then(res => res.json())
         .then(data => {
-            console.log(data);
             setGallery(data)
         })
     },[user])

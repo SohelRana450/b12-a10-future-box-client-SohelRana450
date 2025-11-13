@@ -1,39 +1,46 @@
 import React, { use, useEffect, useState } from 'react';
 import {  Link, useNavigate, useParams} from 'react-router';
-import { toast } from 'react-toastify';
 import { AuthContext } from '../Provider/AuthContext';
 import Swal from 'sweetalert2';
 
 const ArtworkDetails = () => {
     const {user} = use(AuthContext)
     const {id} = useParams()
-    const [count,setcount] = useState({})
+    const [count,setCount] = useState({})
     const [refetch,setRefetch] = useState(false)
     const navigate = useNavigate()
 
     useEffect(()=>{
-        fetch(`http://localhost:3000/addArtwork/${id}`)
+        if(!user){
+            return
+        }
+        fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/addArtwork/${id}`,{
+            headers: {
+                authorization: `Bearer ${user.accessToken}`
+            }
+        })
         .then(res => res.json())
         .then(data =>{
-            setcount(data)
+            setCount(data)
         })
-    },[id,refetch])
+    },[id,refetch,user])
 
     const handleLikeButton =()=>{
-        const final = {
-            likes: count.likes,
-        };
-        fetch(`http://localhost:3000/likes/${count._id}`,{
+        
+        fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/likes/${count._id}`,{
             method: "POST",
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `Bearer ${user.accessToken}`
+
             },
-            body: JSON.stringify(final)
+            body: JSON.stringify({userEmail: user.email})
         })
         .then(res => res.json())
-        .then(()=>{
+        .then((data)=>{
+            setCount(prev => ({...prev, likes: data.likes}))
             setRefetch(!refetch)
-            toast.success('Like')
+            
             
         })  
         
@@ -41,15 +48,16 @@ const ArtworkDetails = () => {
 
     const handleFavoriteButton = () =>{
 
-        fetch(`http://localhost:3000/favoriteArt`,{
+        fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/favoriteArt`,{
             method: "POST",
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `Bearer ${user.accessToken}`
             },
             body: JSON.stringify({...count, favorite_by: user.email})
         })
         .then(res => res.json())
-        .then(()=>{
+        
 let timerInterval;
                    Swal.fire({
   position: "top",
@@ -72,7 +80,7 @@ let timerInterval;
   }
 })
            navigate('/explore-artworks') 
-        })
+        
        
     }
 

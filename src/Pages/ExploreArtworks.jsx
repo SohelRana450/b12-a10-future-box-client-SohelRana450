@@ -1,17 +1,82 @@
-import React from 'react';
-import { useLoaderData } from 'react-router';
+import React, {  use, useEffect, useState } from 'react';
 import ArtWorkSection from '../components/ArtWorkSection';
+import { AuthContext } from '../Provider/AuthContext';
 
 const ExploreArtworks = () => {
-    const data = useLoaderData();
+  const [artworks, setArtworks] = useState([]);
+  const {user,loading} = use(AuthContext)
+
+  useEffect(() => {
+    if(!user){
+      return
+    }
+    fetch('https://b12-a10-future-box-server-sohelrana.vercel.app/addArtwork',{
+      headers:{
+        authorization : `Bearer ${user.accessToken}`
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        const publicArtworks = data.filter(art => art.visibility === "Public");
+        setArtworks(publicArtworks);
+      })
+  }, [user]);
+ if(loading){
+  return (
+            <div className='flex justify-center items-center mt-50'>
+                <span className='loading loading-bars loading-xl'></span>
+            </div>
+        )
+}
+  const handleSearch =(e)=>{
+    e.preventDefault()
+    const search = e.target.search.value
+    fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/search?search=${search}`,{
+      headers:{
+        authorization : `Bearer ${user.accessToken}`
+      }
+    })
+    .then(res => res.json())
+    .then(data =>{
+      setArtworks(data)
+      
+    })
     
-    return (
-        <div className='w-10/12 mx-auto py-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 '>
-           {
-            data.map(promise => <ArtWorkSection key={promise._id} promise={promise}></ArtWorkSection>)
-           }
-        </div>
-    );
+  }
+
+  return (
+    <div className="w-10/12 mx-auto py-10">
+      {/*  Search Bar */}
+      <h1 className='text-center text-4xl font-bold'>Explore Artworks</h1>
+    <form onSubmit={handleSearch} className='mt-5 mb-10 flex justify-center gap-2'>
+       <label className="input rounded-2xl">
+  <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g
+      strokeLinejoin="round"
+      strokeLinecap="round"
+      strokeWidth="2.5"
+      fill="none"
+      stroke="currentColor"
+    >
+      <circle cx="11" cy="11" r="8"></circle>
+      <path d="m21 21-4.3-4.3"></path>
+    </g>
+  </svg>
+  <input name="search" type="search"  placeholder="Search"  />
+</label>
+<button className='btn btn-secondary rounded-2xl'>Search</button>
+    </form>
+
+      {/*  Artworks Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+         {
+          artworks.map((promise) => 
+            <ArtWorkSection key={promise._id} promise={promise} /> )}
+          
+        
+      </div>
+    </div>
+  );
 };
 
 export default ExploreArtworks;
