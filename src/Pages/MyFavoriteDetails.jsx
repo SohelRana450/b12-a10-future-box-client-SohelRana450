@@ -1,13 +1,12 @@
 import React, {  useEffect, useState } from 'react';
 import { AuthContext } from '../Provider/AuthContext';
 import { Link, useNavigate, useParams} from 'react-router';
-import { toast } from 'react-toastify';
 
 const MyFavoriteDetails = () => {
         const {id} = useParams()
         const [count,setcount] = useState({})
         const navigate = useNavigate()
-    
+        const [refetch,setRefetch] = useState(false)
         useEffect(()=>{
            
             fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/favoriteArt/${id}`)
@@ -15,7 +14,7 @@ const MyFavoriteDetails = () => {
             .then(data =>{
                 setcount(data)
             })
-        },[id])
+        },[id,refetch])
     
        
     
@@ -26,8 +25,11 @@ const MyFavoriteDetails = () => {
                 
             })
             .then(res => res.json())
-                toast.success('Add Favorite Artwork')
-           navigate('/my-favorites')
+            .then(()=>{
+                setRefetch(!refetch)
+                 navigate(`/my-favorites?refresh=${Date.now()}`)
+            })
+          
         }
     
     

@@ -1,11 +1,22 @@
-import React from 'react';
-import { Link, useLoaderData, useNavigate} from 'react-router';
+import React, { useEffect, useState } from 'react';
+import { Link,  useNavigate, useParams} from 'react-router';
 import { toast } from 'react-toastify';
 
 
 const UpdatedArtwork = () => {
-        const data = useLoaderData()
+        // const data = useLoaderData()useLoaderData,
+        const {id} = useParams()
+        const [data1,setData] = useState([])
         const navigate = useNavigate()
+        const [refetch,setRefetch] = useState(false)
+        useEffect(()=>{
+          
+            fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/addArtwork/${id}`)
+            .then(res => res.json())
+            .then(data =>{
+              setData(data)
+            })
+        },[id,refetch])
 
         const handleForm = (e) =>{
                 e.preventDefault()
@@ -20,13 +31,13 @@ const UpdatedArtwork = () => {
                 const description = e.target.description.value;
                 const totalArtworks = e.target.totalArtworks.value;
                 
-               const name = data?.displayName;
-             const email = data?.email;
-             const artistPhoto = data?.photoURL;
+               const name = data1?.displayName;
+             const email = data1?.email;
+             const artistPhoto = data1?.photoURL;
              const createdAt = new Date().toISOString();
         
                 const artworkUser = {title,name,artistname,email,ImageURL,price,tools,visibility,category,dimensions,description,totalArtworks,artistPhoto,createdAt}
-                fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/addArtwork/${data._id}`,{
+                fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/addArtwork/${data1._id}`,{
                     method: 'PUT',
                     headers:{
                         'content-type' : "application/json"
@@ -34,11 +45,13 @@ const UpdatedArtwork = () => {
                     body: JSON.stringify(artworkUser)
                 })
                 .then(res => res.json())
-                .then()
+                .then(() =>{
+                  setRefetch(!refetch)
+              
         
                 toast.success('Successfully Artwork Add!')
-                navigate( `/my-gallery-details/${data._id}`)
-                e.target.reset();
+                navigate( `/my-gallery-details/${data1._id}?refresh=${Date.now()}`)
+                  })
             }
                
     return (
@@ -53,32 +66,32 @@ const UpdatedArtwork = () => {
             
             <div className='w-full mx-auto space-y-3'>
                  <label className="label">Title</label>
-          <input type="text" defaultValue={data.title} name="title" className="input block w-full" placeholder="Title" />
+          <input type="text" defaultValue={data1.title} name="title" className="input block w-full" placeholder="Title" />
             </div>
             <div className='w-full mx-auto space-y-3'>
                 <label className="label">Artist Name</label>
-          <input type="text" defaultValue={data.artistname}  name="artistname" className="input block w-full" placeholder="Artist Name" />
+          <input type="text" defaultValue={data1.artistname}  name="artistname" className="input block w-full" placeholder="Artist Name" />
             </div>
            </div>
          <div className='flex flex-col md:flex-row gap-3 justify-between'>
             <div className='w-full mx-auto space-y-3'>
                  <label className="label">Name</label>
-          <input type="text" defaultValue={data.name} name="name" className="input block w-full" placeholder="Name" />
+          <input type="text" defaultValue={data1.name} name="name" className="input block w-full" placeholder="Name" />
             </div>
             <div className='w-full space-y-3'>
           <label className="label">Email</label>
-          <input type="email"  defaultValue={data.email} name="email" className="input block w-full" placeholder="Email" />
+          <input type="email"  defaultValue={data1.email} name="email" className="input block w-full" placeholder="Email" />
             </div>
          </div>
           <div className='flex flex-col md:flex-row gap-3 justify-between'>
             <div className='w-full space-y-3'>
                 <label className="label">Image</label>
-          <input type="text" defaultValue={data.ImageURL} name="ImageURL" className="input block w-full" placeholder="Image URL" />
+          <input type="text" defaultValue={data1.ImageURL} name="ImageURL" className="input block w-full" placeholder="Image URL" />
             </div>
             
             <div className=' space-y-3'>
                 <label className="label">Medium/Tools</label>
-          <input type="text" defaultValue={data.tools} name="tools" className="input block w-50" placeholder="Medium/Tools" />
+          <input type="text" defaultValue={data1.tools} name="tools" className="input block w-50" placeholder="Medium/Tools" />
             </div>
             
           </div>
@@ -86,23 +99,23 @@ const UpdatedArtwork = () => {
             <div className='space-y-3'>
               <label className="label">Photo</label>
           <input type="text" name="artistPhoto"
-          defaultValue={data.artistPhoto}
+          defaultValue={data1.artistPhoto}
            className="input block w-full md:w-110" placeholder="PhotoURL" />
             </div>
            <div className='space-y-3 md:mt-0 mt-2'>
              <label className="label">TotalArtworks</label>
-          <input type="text" defaultValue={data.totalArtworks} name="totalArtworks"
+          <input type="text" defaultValue={data1.totalArtworks} name="totalArtworks"
            className="input block" placeholder="Total Artworks" />
            </div>
           </div>
          <div className='flex flex-col md:flex-row justify-around mt-2'>
              <div className='space-y-3 mt-2'>
                 <label className="label ">Price (Optional)</label>
-          <input type="text" defaultValue={data.price} name="price" className="input block w-50" placeholder="Price" />
+          <input type="text" defaultValue={data1.price} name="price" className="input block w-50" placeholder="Price" />
              </div>
           <div className='space-y-3 mt-2'>
             <label className="label">Dimensions (Optional)</label>
-          <input type="text" defaultValue={data.dimensions} name="dimensions" className="input w-50 block" placeholder="Dimensions" />
+          <input type="text" defaultValue={data1.dimensions} name="dimensions" className="input w-50 block" placeholder="Dimensions" />
           </div>
          </div>
 
@@ -110,7 +123,7 @@ const UpdatedArtwork = () => {
 <div className='flex flex-col md:flex-row justify-around mt-2'>
     <div className='space-y-2 mt-2'>
         <label className="label">Visibility</label>
-          <select defaultValue={data.visibility} name='visibility' defaultChecked="Pick a Option" className="select appearance-none w-50 block">
+          <select defaultValue={data1.visibility} name='visibility' defaultChecked="Pick a Option" className="select appearance-none w-50 block">
   <option>Public</option>
   <option>Private</option>
 </select>
@@ -126,13 +139,13 @@ const UpdatedArtwork = () => {
     </div>
 </div>
           <label className="label">Description</label>
-          <textarea type="text" defaultValue={data.description} placeholder='Description...'
+          <textarea type="text" defaultValue={data1.description} placeholder='Description...'
           name="description"
            className='textarea block w-full' id="" cols="80" rows="6"></textarea>
           
           <div className='flex gap-6 mb-10'>
             <button type='submit' className="btn  mt-4 border-pink-500">Update Artwork</button>
-          <Link to={`/my-gallery-details/${data._id}`} className='btn mt-4 border-pink-500'>Back Gallery Details</Link>
+          <Link to={`/my-gallery-details/${data1._id}`} className='btn mt-4 border-pink-500'>Back Gallery Details</Link>
           </div>
           </form>
         

@@ -1,24 +1,19 @@
-import React, {  use, useEffect, useState } from 'react';
+import React, {   useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import Swal from 'sweetalert2';
-import { AuthContext } from '../Provider/AuthContext';
 
 const MyGalleryDetails = () => {
-        const {user} = use(AuthContext)
         const [gallery,setGallery] = useState([])
         const {id} = useParams()
         const navigate = useNavigate()
-    
         useEffect(()=>{
-          if(!user){
-            return
-          }
+          
             fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/addArtwork/${id}`)
             .then(res => res.json())
             .then(data => {
                 setGallery(data)
             })
-        },[id,user])
+        },[id])
 
         const handleDeleteButton = () =>{
             Swal.fire({
@@ -31,7 +26,9 @@ const MyGalleryDetails = () => {
   confirmButtonText: "Yes, delete it!"
 }).then((result) => {
   if (result.isConfirmed) {
-    fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/addArtwork/${gallery._id}`)
+    fetch(`https://b12-a10-future-box-server-sohelrana.vercel.app/addArtwork/${gallery._id}`,{
+      method: "DELETE"
+    })
     .then(res => res.json())
     .then(()=>{
         navigate('/my-gallery')
@@ -53,7 +50,7 @@ const MyGalleryDetails = () => {
                 
                 <img className='w-170 md:h-90 rounded-xl ' src={gallery.ImageURL} alt="" />
                <div className=' mt-15  space-x-5 md:pl-15'>
-                 <Link to={`/updated-artwork/${id}`} className='btn btn-secondary px-9'>Update </Link>
+                 <Link to={`/updated-artwork/${gallery._id}`} className='btn btn-secondary px-9'>Update </Link>
                 
             <button onClick={handleDeleteButton} className='btn btn-primary px-10'>Delete</button>
                </div>
@@ -81,3 +78,4 @@ const MyGalleryDetails = () => {
 };
 
 export default MyGalleryDetails;
+
